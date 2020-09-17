@@ -1,0 +1,24 @@
+1. How many cases were opened in June of 2020?
+	$:cat june-2020-311-cases.tsv | wc -l
+	49956
+
+	Subtract 1 (header): 49955
+
+2. What were the top three categories of cases reported in June? How many of each case was reported?
+	$:cut -f8 june-2020-311-cases.tsv| sort -n | uniq -c | sort -n
+
+	Case Count | Category
+    3382         Graffiti
+    4976         Parking Enforcement
+    22959        Street and Sidewalk Cleaning
+
+3. How many cases were reported in the Mission neighborhood?
+	$:cut -f14 june-2020-311-cases.tsv| grep -w "^Mission$" | wc -l
+	4435
+
+4. Is there a dramatic difference in cases opened in the AM versus the PM? How many were opened in each?
+	$:cut -f2 june-2020-311-cases.tsv | cut -d\  -f3 | sort | uniq -c
+	
+	1 Opened
+	21989 AM
+	27966 PM
