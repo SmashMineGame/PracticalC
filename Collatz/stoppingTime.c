@@ -28,12 +28,8 @@ int findMaxCollatz(int max) {
 int main(){
 	int maximumVal = 100000;
 	
-	/*
 	int maximumFound = findMaxCollatz(maximumVal);	
-	printf("%d",maximumFound);
-	*/
-	
-	printf("%d", findMaxCollatz(maximumVal));
+	printf("%d has a stopping time of %d", maximumFound, collatz(maximumFound));
 
 	return 0;
 }
