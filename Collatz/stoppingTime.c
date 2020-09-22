@@ -29,7 +29,7 @@ int main(){
 	int maximumVal = 100000;
 	
 	int maximumFound = findMaxCollatz(maximumVal);	
-	printf("%d has a stopping time of %d", maximumFound, collatz(maximumFound));
+	printf("%d has a stopping time of %d\n", maximumFound, collatz(maximumFound));
 
 	return 0;
 }
