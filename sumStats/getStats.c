@@ -18,7 +18,7 @@ double* get_array(size_t l) {
 	return output;
 }
 
-double sum(double* arr, size_t l) {
+double sum(const double* arr, size_t l) {
 	double output = 0;
 	for(size_t i = 0; i < l; i++) {
 		output += arr[i];
@@ -26,13 +26,13 @@ double sum(double* arr, size_t l) {
 	return output;
 }
 
-double mean(double* arr, size_t l) {
+double mean(const double* arr, size_t l) {
 	double output = sum(arr, l);
 	output /= l;
 	return output;
 }
 
-double stdev(double* arr, size_t l) {
+double stdev(const double* arr, size_t l) {
 	double output = 0;
 	double m = mean(arr, l);
 	for (size_t i = 0; i < l; i++) {
