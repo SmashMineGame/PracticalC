@@ -32,7 +32,7 @@ char* word_to_pig_latin(const char *word) {
 	}
 
 	if (firstVowelPos == 0) sprintf(output, "%sw", output);
-	if (cap == 1) { output[0] -= 32; }
+	if (cap == 1) output[0] -= 32;
 	sprintf(output, "%say", output);
 
 	return output;
@@ -76,7 +76,6 @@ void test_pig_latin() {
         free(actual_latin);
         i++;
     }
-    
     printf("%d/%d cases passed\n", passed_casses, failed_cases + passed_casses);
 }
 
