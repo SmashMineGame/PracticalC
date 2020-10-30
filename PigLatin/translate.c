@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <stdbool.h>
 
 int isVowel (char c) {
 	if (c == 'a' || c == 'i' || c == 'e' || c == 'u' || c == 'o' || c == 'y' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') return 1;
@@ -15,37 +13,28 @@ char toLwr (char c) {
 
 char* word_to_pig_latin(const char *word) {
 	char* output = calloc(strlen(word), sizeof(char));
-	strcpy(output, word);
 
 	int cap = 0;
 	int firstVowelPos = 0;
 
-	if (word[0] <= 90) {
-		cap = 1;
-		output[0] += 32;
-	}
+	if (word[0] <= 90) cap = 1;
 	
 	while (1) {
 		char cur = word[firstVowelPos]; 
-		if (cur == 0) { break; }
-		if (isVowel(cur) == 1) { break; }
+		if (cur == 0 || isVowel(cur) == 1) break;
 		firstVowelPos++;
 	}
 
 	int pos = 0;
-	for (unsigned long i = firstVowelPos; i < strlen(word); i++) {
-		output[pos] = toLwr(word[i]);	
+	for (unsigned long i = firstVowelPos; i < strlen(word) + firstVowelPos; i++) {
+		output[pos] = toLwr(word[i%strlen(word)]);	
 		pos++;
 	}
-	for (int j = 0; j < firstVowelPos; j++) {
-		output[pos] = toLwr(word[j]);
-		pos++;
-	}	
 
-	if (firstVowelPos == 0) { sprintf(output, "%sw", output); }
+	if (firstVowelPos == 0) sprintf(output, "%sw", output);
 	if (cap == 1) { output[0] -= 32; }
-
 	sprintf(output, "%say", output);
+
 	return output;
 }
 
@@ -72,9 +61,7 @@ void test_pig_latin() {
         const char *original = cases[i][0];
         const char *expected_latin = cases[i][1];
         
-        if(!original || !expected_latin) {
-            break;
-        }
+        if(!original || !expected_latin) break;
         
         char *actual_latin = word_to_pig_latin(original);
         
@@ -86,9 +73,7 @@ void test_pig_latin() {
 			printf("Test case passed: expected '%s' -> '%s'\n", original, actual_latin);
             passed_casses++;
         }
-        
         free(actual_latin);
-        
         i++;
     }
     
