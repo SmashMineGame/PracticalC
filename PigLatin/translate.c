@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int isVowel (char c) {
 	if (c == 'a' || c == 'i' || c == 'e' || c == 'u' || c == 'o' || c == 'y' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') return 1;
@@ -12,12 +13,10 @@ char toLwr (char c) {
 }
 
 char* word_to_pig_latin(const char *word) {
-	char* output = calloc(strlen(word), sizeof(char));
-
 	int cap = 0;
-	int firstVowelPos = 0;
-
 	if (word[0] <= 90) cap = 1;
+
+	size_t firstVowelPos = 0;
 	
 	while (1) {
 		char cur = word[firstVowelPos]; 
@@ -25,16 +24,18 @@ char* word_to_pig_latin(const char *word) {
 		firstVowelPos++;
 	}
 
+	char* output = calloc(strlen(word) + (!firstVowelPos ? 4 : 3), sizeof(char));
+
 	int pos = 0;
-	for (unsigned long i = firstVowelPos; i < strlen(word) + firstVowelPos; i++) {
-		output[pos] = toLwr(word[i%strlen(word)]);	
+	for (size_t i = firstVowelPos; i < strlen(word) + firstVowelPos; i++) {
+		output[pos] = tolower(word[i%strlen(word)]);	
 		pos++;
 	}
 
 	if (firstVowelPos == 0) sprintf(output, "%sw", output);
 	if (cap == 1) output[0] -= 32;
 	sprintf(output, "%say", output);
-
+	
 	return output;
 }
 
