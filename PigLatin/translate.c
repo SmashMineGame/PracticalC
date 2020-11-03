@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int isVowel (char c) {
-	if (c == 'a' || c == 'i' || c == 'e' || c == 'u' || c == 'o' || c == 'y' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') return 1;
+int isVowel (char c, int noCheckY) {
+	c = tolower(c);
+	if (c == 'a' || c == 'i' || c == 'e' || c == 'u' || c == 'o' || (noCheckY && c == 'y')) return 1;
 	else return 0;
 }
 
@@ -16,7 +17,7 @@ char* word_to_pig_latin(const char *word) {
 	
 	while (1) {
 		char cur = word[firstVowelPos]; 
-		if (cur == 0 || isVowel(cur) == 1) break;
+		if (cur == 0 || isVowel(cur, firstVowelPos) == 1) break;
 		firstVowelPos++;
 	}
 
@@ -46,6 +47,7 @@ void test_pig_latin() {
         { "Float", "Oatflay" },
         { "bandanda",  "andandabay" },
         { "Apple", "Appleway" },
+		{ "youth", "outhyay"},
         
         // feel free to add more cases above this line,
         // but leave the { NULL, NULL } line intact.
