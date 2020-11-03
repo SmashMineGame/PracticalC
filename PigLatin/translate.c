@@ -8,10 +8,6 @@ int isVowel (char c) {
 	else return 0;
 }
 
-char toLwr (char c) {
-	return c <= 90 ? c + 32 : c;
-}
-
 char* word_to_pig_latin(const char *word) {
 	int cap = 0;
 	if (word[0] <= 90) cap = 1;
