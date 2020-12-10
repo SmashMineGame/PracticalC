@@ -1,35 +1,34 @@
 ---
 marp: true
 theme: gaia
+_class: lead
 ---
-<!-- _class: lead -->
-
 # Stderr and Stdout
 
 ---
 
 # Data Streams
-Streams are simply transfer data from one point to another.
+Streams are a way of transferring data from one point to another.
 
-The 3 standard streams in Linux are `stdin`, `stdout`, and `stderr`.
+The 3 standard streams in *nix are `stdin`, `stdout`, and `stderr`.
 
 * `stdin` takes data from the shell to the program.
 * `stdout` and `stderr` take data from the program to the shell.
 	* They are functionally equivalent
 
-Streams can be treated the same as files in many cases. 
+Streams can be treated the same as files in many simple cases. 
 
 ---
-
+ 
 # Usage in C
 
 ```
 fprintf(file, format, ...)
 ```
 
-You can use `stdout` and `stderr` in place of the file.
+In C, writing to a file is functionally the same as writing to a built-in stream. To do so, you can pass `stdout` or `stderr` to `printf`.
 
-Outputting to `stderr` won't stop the program, you'll have to stop the program yourself if that is your intended functionality.
+Throwing an error by outputting to `stderr` won't stop the program, so you'll have to stop the program manually if that's what you need.
 
 ---
 
@@ -54,9 +53,10 @@ stdout gets piped again!
 ```
 $ ./prog [redirect] output.txt
 ```
-* `>`: Stdout of program is put into file
+* `>`: Stdout of program is put into file, `1>` works too
 * `2>`: Stderr of program is put into file
 * `&>`: Stdout and stderr is put into file
+* `<`: Stdin is put into file, `0>` works too
 
 ### Can be chained:
 ```
