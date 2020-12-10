@@ -9,7 +9,7 @@ theme: gaia
 ---
 
 # Data Streams
-Streams are simply transfer data from one point to another.
+Streams are a way of transferring data from one point to another.
 
 The 3 standard streams in Linux are `stdin`, `stdout`, and `stderr`.
 
@@ -17,7 +17,7 @@ The 3 standard streams in Linux are `stdin`, `stdout`, and `stderr`.
 * `stdout` and `stderr` take data from the program to the shell.
 	* They are functionally equivalent
 
-Streams can be treated the same as files in many cases. 
+Streams can be treated the same as files in most simple cases. 
 
 ---
 
@@ -27,9 +27,9 @@ Streams can be treated the same as files in many cases.
 fprintf(file, format, ...)
 ```
 
-You can use `stdout` and `stderr` in place of the file.
+In C, writing to a file is functionally the same as writing to a built-in stream. To do so, you can pass `stdout` or `stderr` to `printf`.
 
-Outputting to `stderr` won't stop the program, you'll have to stop the program yourself if that is your intended functionality.
+Throwing an error by outputting to `stderr` won't stop the program, so you'll have to stop the program manually if that's what you need.
 
 ---
 
@@ -78,4 +78,4 @@ stderr doesn't get piped
 2:stdout gets piped again!
 ```
 
-Notice: The final output gets misordered since the first and third output lines get piped into grep and resolved with the grep command while the second output line gets resolved with the program.
+Notice: The final output is incorrectly ordered since the first and third output lines are not errors and get piped into grep and resolved with the grep command while the second output line is an error and is excluded from grep and printed with the output of the program.
