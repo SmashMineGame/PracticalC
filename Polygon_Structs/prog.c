@@ -97,5 +97,7 @@ int main()
 	double area = find_area(n, points);
 	printf("Area: %lf\n", area);
 
+	free(&points);
+
 	return 0;
 }
