@@ -74,7 +74,7 @@ double find_area(int n, const point *points)
 	{
 		int j = i + 1 == n ? 0 : i + 1;
 		double dx = points[i].x + points[j].x;
-		double dy = points[i].y + points[j].y;
+		double dy = points[i].y - points[j].y;
 		out += dx * dy / 2;
 	}
 
@@ -97,7 +97,7 @@ int main()
 	double area = find_area(n, points);
 	printf("Area: %lf\n", area);
 
-	free(&points);
+	free(points);
 
 	return 0;
 }
