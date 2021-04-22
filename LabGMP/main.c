@@ -4,60 +4,40 @@
 
 int checkSize(mpz_t n, int size)
 {
-	// printf("%d", mpz_sizeinbase(n, 10));
-	if (mpz_sizeinbase(n, 10) > size)
+	if (mpz_sizeinbase(n, 10) > size - 1)
 	{
-		char **temp = malloc(sizeof(char) * (size + 1));
-
-		printf("%d\n", gmp_asprintf(temp, "%Zd", n));
-
-		if (gmp_asprintf(temp, "%Zd", n) == size)
-		{
-			free(temp);
-			return 0;
-		}
-		free(temp);
+		return 0;
 	}
 	return 1;
 }
 
 int main()
 {
-	printf("start\n");
-	mpz_t prev, curr;
-	mpz_init(prev);
-	mpz_init(curr);
+	int number_of_digits = 1000;
 
-	mpz_set_ui(prev, 0); // e = 0;
-	mpz_add(curr, a, b); // c = a + b;
+	mpz_t prev, curr, temp;
+	mpz_inits(prev, curr, temp, NULL);
+
+	mpz_set_ui(prev, 1); // prev = 0;
+	mpz_set_ui(curr, 0); // curr = 1;
 
 	int count = 0;
+	int stop = 1;
 
-	// gmp_printf("[a: %Zd]\n", a);
-
-	while (checkSize(curr, 1000))
+	while (stop)
 	{
-		mpz_t tb, temp;
-		mpz_init(tb);
-		mpz_init(temp);
+		stop = checkSize(curr, number_of_digits);
 
-		mpz_set(tb, b);		 // tb = b;
-		mpz_set(temp, curr); // tc = c;
+		mpz_set(temp, curr); // temp = curr;
 
-		mpz_add(curr, curr, b); // c += b;
-		mpz_set(b, temp);		// b = tc;
-		mpz_set(a, tb);			// a = tb;
-
-		mpz_clear(tb);
-		mpz_clear(temp);
+		mpz_add(curr, curr, prev); // curr += prev;
+		mpz_set(prev, temp);	   // prev = temp;
 
 		count++;
 	}
 
 	gmp_printf("Fib num %d: %Zd\n", count, curr);
 
-	mpz_clear(a);
-	mpz_clear(b);
-	mpz_clear(c);
+	mpz_clears(prev, curr, temp, NULL);
 	return 0;
 }
